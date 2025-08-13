@@ -76,18 +76,37 @@ async function createCardImage(randomIdCard, fieldSide) {
       } catch (_) {}
     });
 
-    // enable touch support (mobile)
+    // enable touch support (mobile) com feedback e highlight dinâmico
+    let touchMoveListener;
     cardImage.addEventListener(
       "touchstart",
       (ev) => {
         ev.preventDefault();
+        cardImage.classList.add("touch-dragging");
         const dropZone = document.getElementById("player-drop-zone");
         if (dropZone) dropZone.classList.add("is-dragover");
+
+        touchMoveListener = (e) => {
+          const t = e.touches && e.touches[0];
+          if (!t) return;
+          if (dropZone) {
+            const r = dropZone.getBoundingClientRect();
+            const inside =
+              t.clientX >= r.left && t.clientX <= r.right && t.clientY >= r.top && t.clientY <= r.bottom;
+            dropZone.classList.toggle("is-dragover", inside);
+          }
+        };
+        cardImage.addEventListener("touchmove", touchMoveListener, { passive: false });
       },
       { passive: false }
     );
 
     cardImage.addEventListener("touchend", (ev) => {
+      cardImage.classList.remove("touch-dragging");
+      if (touchMoveListener) {
+        cardImage.removeEventListener("touchmove", touchMoveListener);
+        touchMoveListener = null;
+      }
       const touch = ev.changedTouches && ev.changedTouches[0];
       const dropZone = document.getElementById("player-drop-zone");
       if (!touch || !dropZone) return;
@@ -95,7 +114,8 @@ async function createCardImage(randomIdCard, fieldSide) {
       const rect = dropZone.getBoundingClientRect();
       const x = touch.clientX;
       const y = touch.clientY;
-      const inside = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+      const inside =
+        x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
       dropZone.classList.remove("is-dragover");
       if (inside) {
         setCardsField(String(randomIdCard));
