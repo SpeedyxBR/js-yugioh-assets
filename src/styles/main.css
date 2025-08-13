@@ -131,6 +131,10 @@ button, a, img:hover, button:hover, a:hover {
     width: 8rem;
     border: 1px solid #fff;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .card {
@@ -143,7 +147,9 @@ button, a, img:hover, button:hover, a:hover {
 
 /* Ensure images inside field slots scale properly */
 .card-infield img {
-	width: 100%;
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
 	height: auto;
 	display: block;
 }
@@ -194,6 +200,12 @@ button, a, img:hover, button:hover, a:hover {
 	outline: 2px dashed #ffd166;
 	outline-offset: -6px;
 	box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.35) inset;
+}
+
+/* ghost/feedback de arrasto por toque */
+.card.touch-dragging {
+	transform: scale(1.15);
+	filter: drop-shadow(0 6px 10px rgba(0,0,0,0.45));
 }
 
 /* Center emblem image between fields and allow it to scale on mobile */
@@ -247,7 +259,7 @@ button, a, img:hover, button:hover, a:hover {
 
 	.versus-top { gap: 0.5rem; }
 
-	/* shrink field slots */
+    /* shrink field slots */
 	.card-infield {
 		width: 6rem;
 		height: 8.4rem;
@@ -264,10 +276,10 @@ button, a, img:hover, button:hover, a:hover {
 		scroll-snap-type: x mandatory;
 	}
 
-	.card {
-		height: 80px;
-		scroll-snap-align: start;
-	}
+    .card {
+        height: 80px;
+        scroll-snap-align: start;
+    }
 
 	.versus-top > img {
 		height: 72px;
