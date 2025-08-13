@@ -92,11 +92,16 @@ async function createCardImage(randomIdCard, fieldSide) {
           if (dropZone) {
             const r = dropZone.getBoundingClientRect();
             const inside =
-              t.clientX >= r.left && t.clientX <= r.right && t.clientY >= r.top && t.clientY <= r.bottom;
+              t.clientX >= r.left &&
+              t.clientX <= r.right &&
+              t.clientY >= r.top &&
+              t.clientY <= r.bottom;
             dropZone.classList.toggle("is-dragover", inside);
           }
         };
-        cardImage.addEventListener("touchmove", touchMoveListener, { passive: false });
+        cardImage.addEventListener("touchmove", touchMoveListener, {
+          passive: false,
+        });
       },
       { passive: false }
     );
