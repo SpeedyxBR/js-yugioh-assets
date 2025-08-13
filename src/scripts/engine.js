@@ -69,6 +69,14 @@ async function createCardImage(randomIdCard, fieldSide) {
 
 
     if (fieldSide === state.playerSides.player1) {
+        // enable drag support (desktop)
+        cardImage.setAttribute("draggable", "true");
+        cardImage.addEventListener("dragstart", (ev) => {
+            try {
+                ev.dataTransfer.setData("text/plain", String(randomIdCard));
+            } catch (_) {}
+        });
+
         cardImage.addEventListener("mouseover", () => {
             drawSelectCard(randomIdCard);
         });
@@ -198,12 +206,17 @@ state.actions.button.addEventListener("click", () => {
     resetDuel();
 })
 
+// audio controls
+let sfxVolume = 0.8;
+let sfxMuted = false;
+
 async function playAudio(status) {
     const audio = new Audio(`./src/assets/audios/${status}.wav`);
+    audio.volume = sfxMuted ? 0 : sfxVolume;
     try {
         await audio.play();
     } catch(error) {
-        console.error("Erro ao reproduzir a música de fundo");
+        console.error("Erro ao reproduzir SFX");
     }
 }
 
@@ -216,14 +229,87 @@ function init() {
 
     updateScore();
 
-    const bgm = document.getElementById("bgm");
-    try {
-    bgm.play();
-    } catch (error) {
-        console.error("Erro ao reproduzir a música de fundo")
-    }
+    setupDragAndDrop();
+    setupStartOverlay();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     init();
 });
+
+function setupDragAndDrop() {
+    const dropZone = document.getElementById("player-drop-zone");
+    if (!dropZone) return;
+
+    function clearDragState() {
+        dropZone.classList.remove("is-dragover");
+    }
+
+    dropZone.addEventListener("dragover", (ev) => {
+        ev.preventDefault();
+    });
+
+    dropZone.addEventListener("dragenter", () => {
+        dropZone.classList.add("is-dragover");
+    });
+
+    dropZone.addEventListener("dragleave", clearDragState);
+
+    dropZone.addEventListener("drop", (ev) => {
+        ev.preventDefault();
+        clearDragState();
+        let data = "";
+        try {
+            data = ev.dataTransfer.getData("text/plain");
+        } catch (_) {}
+        if (data !== "") {
+            setCardsField(data);
+        }
+    });
+}
+
+function setupStartOverlay() {
+    const overlay = document.getElementById("start-overlay");
+    const startBtn = document.getElementById("start-game");
+    const bgm = document.getElementById("bgm");
+    const bgmVolume = document.getElementById("bgm-volume");
+    const sfxVol = document.getElementById("sfx-volume");
+    const muteBgm = document.getElementById("mute-bgm");
+    const muteSfx = document.getElementById("mute-sfx");
+
+    if (!overlay || !startBtn || !bgm) return;
+
+    // defaults
+    bgm.volume = bgmVolume ? Number(bgmVolume.value) : 0.6;
+    sfxVolume = sfxVol ? Number(sfxVol.value) : 0.8;
+    bgm.muted = muteBgm ? muteBgm.checked : false;
+    sfxMuted = muteSfx ? muteSfx.checked : false;
+
+    startBtn.addEventListener("click", async () => {
+        try {
+            await bgm.play();
+        } catch (_) {}
+        overlay.style.display = "none";
+    });
+
+    if (bgmVolume) {
+        bgmVolume.addEventListener("input", () => {
+            bgm.volume = Number(bgmVolume.value);
+        });
+    }
+    if (sfxVol) {
+        sfxVol.addEventListener("input", () => {
+            sfxVolume = Number(sfxVol.value);
+        });
+    }
+    if (muteBgm) {
+        muteBgm.addEventListener("change", () => {
+            bgm.muted = muteBgm.checked;
+        });
+    }
+    if (muteSfx) {
+        muteSfx.addEventListener("change", () => {
+            sfxMuted = muteSfx.checked;
+        });
+    }
+}
