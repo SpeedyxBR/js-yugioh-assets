@@ -41,7 +41,7 @@ button, a, img:hover, button:hover, a:hover {
     position: relative;
     z-index: 3;
     display: flex;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .container__left {
@@ -139,4 +139,102 @@ button, a, img:hover, button:hover, a:hover {
 
 .card:hover {
     transform: scale(1.2);
+}
+
+/* Ensure images inside field slots scale properly */
+.card-infield img {
+	width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Center emblem image between fields and allow it to scale on mobile */
+.versus-top > img {
+	height: 100px;
+	width: auto;
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 900px) {
+	.bg-video,
+	.bg-video .video,
+	.bg-video::after {
+		height: 100dvh;
+	}
+
+	.container {
+		flex-direction: column;
+		gap: 1rem;
+		min-height: 100dvh;
+	}
+
+	.container__left,
+	.container__right {
+		width: 100%;
+		min-width: auto;
+	}
+
+	.score_box {
+		padding: 12px;
+	}
+
+	.card_details {
+		height: auto;
+		gap: 0.4rem;
+	}
+
+	#card-name { font-size: 0.75rem; }
+	#card-type { font-size: 0.9rem; }
+
+	.card-box__container {
+		height: auto;
+		gap: 0.5rem;
+		padding: 0.5rem;
+	}
+
+	.card-versus__container {
+		height: auto;
+		padding-top: 0.5rem;
+	}
+
+	.versus-top { gap: 0.5rem; }
+
+	/* shrink field slots */
+	.card-infield {
+		width: 6rem;
+		height: 8.4rem;
+	}
+
+	/* horizontal scroll for hands */
+	.card-box {
+		height: auto;
+		padding: 0.5rem 0.25rem;
+		justify-content: flex-start;
+		gap: 0.5rem;
+		overflow-x: auto;
+		overflow-y: hidden;
+		scroll-snap-type: x mandatory;
+	}
+
+	.card {
+		height: 80px;
+		scroll-snap-align: start;
+	}
+
+	.versus-top > img {
+		height: 72px;
+	}
+
+	.rpgui-button {
+		width: 100%;
+		max-width: 320px;
+	}
+}
+
+@media (max-width: 480px) {
+	#card-name { font-size: 0.7rem; }
+	#card-type { font-size: 0.85rem; }
+	.card-infield { width: 5rem; height: 7rem; }
+	.card { height: 72px; }
+	.versus-top > img { height: 56px; }
 }
