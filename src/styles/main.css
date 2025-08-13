@@ -148,6 +148,54 @@ button, a, img:hover, button:hover, a:hover {
 	display: block;
 }
 
+/* Start overlay */
+.start-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(0, 0, 0, 0.55);
+}
+
+.start-overlay__content {
+	max-width: 520px;
+	width: calc(100% - 2rem);
+	background: rgba(0, 0, 0, 0.4);
+	padding: 1rem;
+	text-align: center;
+	color: #fff;
+}
+
+.settings {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 1rem 0;
+}
+
+.setting-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+
+/* Drop zone state */
+#player-drop-zone {
+	position: relative;
+}
+
+#player-drop-zone.is-dragover {
+	outline: 2px dashed #ffd166;
+	outline-offset: -6px;
+	box-shadow: 0 0 0 3px rgba(255, 209, 102, 0.35) inset;
+}
+
 /* Center emblem image between fields and allow it to scale on mobile */
 .versus-top > img {
 	height: 100px;
