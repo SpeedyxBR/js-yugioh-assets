@@ -38,19 +38,38 @@
         <source src="./src/assets/video/yugi.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="start-overlay framed-golden-2" id="start-overlay" role="dialog" aria-modal="true">
+    <div
+      class="start-overlay framed-golden-2"
+      id="start-overlay"
+      role="dialog"
+      aria-modal="true"
+    >
       <div class="start-overlay__content">
         <h1>Yu-Gi-Oh! Jo-ken-po</h1>
         <p>Toque em começar para liberar o áudio no seu dispositivo.</p>
         <div class="settings">
           <div class="setting-row">
             <label for="bgm-volume">BGM</label>
-            <input type="range" id="bgm-volume" min="0" max="1" step="0.05" value="0.6" />
+            <input
+              type="range"
+              id="bgm-volume"
+              min="0"
+              max="1"
+              step="0.05"
+              value="0.6"
+            />
             <label><input type="checkbox" id="mute-bgm" /> Mudo</label>
           </div>
           <div class="setting-row">
             <label for="sfx-volume">SFX</label>
-            <input type="range" id="sfx-volume" min="0" max="1" step="0.05" value="0.8" />
+            <input
+              type="range"
+              id="sfx-volume"
+              min="0"
+              max="1"
+              step="0.05"
+              value="0.8"
+            />
             <label><input type="checkbox" id="mute-sfx" /> Mudo</label>
           </div>
         </div>
@@ -76,11 +95,11 @@
           <div class="card-versus__container">
             <div class="versus-top">
               <div class="card-infield" id="player-drop-zone">
-                <img id="player-field-card" height="180px" width="125px" />
+                <img id="player-field-card" />
               </div>
               <img height="100px" src="./src/assets/icons/millenium2.png" />
               <div class="card-infield">
-                <img id="computer-field-card" height="180px" width="125px" />
+                <img id="computer-field-card" />
               </div>
             </div>
             <div class="versus-botton">
