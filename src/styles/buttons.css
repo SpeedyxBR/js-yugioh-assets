@@ -49,6 +49,31 @@
   display: inline-block;
 }
 
+/* Centralizar texto do botão golden */
+.rpgui-button.golden {
+  position: relative;
+}
+
+.rpgui-button.golden::before,
+.rpgui-button.golden::after {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+}
+
+.rpgui-button.golden {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.rpgui-button.golden > * {
+  position: relative;
+  z-index: 2;
+}
+
 /* golden button style */
 .rpgui-button.golden {
   /* hide button default stuff */
