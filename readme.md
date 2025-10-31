@@ -1,4 +1,4 @@
-# 🎮 Yu-Gi-Oh | Jo-ken-po Edition
+# 🎮 Yu-Gi-Oh | Jo-ken-po Edition 1.0
 
 Um jogo de jokenpo temático Yu-Gi-Oh! desenvolvido para demonstrar conceitos de lógica de programação aplicados a jogos, com uma experiência visual e sonora rica.
 
